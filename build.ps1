@@ -5,14 +5,14 @@ $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
 
 [string] $CakeVersion = ''
 [string] $DotNetVersion= ''
-foreach($line in Get-Content "$PSScriptRoot\build.config")
+foreach ($line in Get-Content "$PSScriptRoot\build.config")
 {
-  if ($line -like 'CAKE_VERSION=*') {
-      $CakeVersion = $line.SubString(13)
-  }
-  elseif ($line -like 'DOTNET_VERSION=*') {
-      $DotNetVersion =$line.SubString(15)
-  }
+    if ($line -like 'CAKE_VERSION=*') {
+        $CakeVersion = $line.SubString(13)
+    }
+    elseif ($line -like 'DOTNET_VERSION=*') {
+        $DotNetVersion = $line.SubString(15)
+    }
 }
 
 
@@ -40,9 +40,9 @@ if ($PSVersionTable.PSEdition -ne 'Core') {
         # exist in .NET 4.0, even though they are addressable if .NET 4.5+ is
         # installed (.NET 4.5 is an in-place upgrade).
         [System.Net.ServicePointManager]::SecurityProtocol = 3072 -bor 768 -bor 192 -bor 48
-      } catch {
+    } catch {
         Write-Output 'Unable to set PowerShell to use TLS 1.2 and TLS 1.1 due to old .NET Framework installed. If you see underlying connection closed or trust errors, you may need to upgrade to .NET Framework 4.5+ and PowerShell v3'
-      }
+    }
 }
 
 ###########################################################################
